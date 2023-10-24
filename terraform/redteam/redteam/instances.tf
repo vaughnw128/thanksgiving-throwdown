@@ -86,5 +86,8 @@ resource "openstack_compute_instance_v2" "team_jumpbox_instance" {
      network {
         port = local.ports[var.jumpbox.management_port]
     }   
+
+    user_data = lookup(var.jumpbox, "user_data", null)
+    config_drive = true
 }
 

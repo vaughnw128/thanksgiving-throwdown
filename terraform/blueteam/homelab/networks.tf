@@ -13,6 +13,10 @@ data "openstack_networking_network_v2" "management_network" {
     name = "Management Network"
 }
 
+data "openstack_networking_subnet_v2" "management_subnet" {
+    name = "Management Subnet"
+}
+
 /**
 
 Blueteam homelab subnet and network information

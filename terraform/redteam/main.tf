@@ -54,7 +54,7 @@ module "redteam" {
         "size": 30
         "redteam_port": "jumpbox_redteam"
         "management_port": "jumpbox_management"
-        "user_data": file("../files/cloud-init-ubuntu.yaml")
+        "user_data": file("../files/cloud-init-redteam.yaml")
     }
 
     // All redteam hosts

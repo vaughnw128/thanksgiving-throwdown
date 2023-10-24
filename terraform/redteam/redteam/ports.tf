@@ -9,6 +9,10 @@ Connects from management to redteam
 resource "openstack_networking_port_v2" "jumpbox_management_port"{
     name = "Redteam Jumpbox Management"
     network_id = data.openstack_networking_network_v2.management_network.id
+    fixed_ip {
+        subnet_id = data.openstack_networking_subnet_v2.management_subnet.id
+        ip_address = "10.100.0.150"
+    }
     security_group_ids = [
         local.secgroups["default"],
         local.secgroups["jumpbox"]

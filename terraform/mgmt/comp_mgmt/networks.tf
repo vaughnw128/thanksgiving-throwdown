@@ -10,6 +10,12 @@ resource "openstack_networking_router_v2" "core_router" {
     external_network_id = var.external_network
 }
 
+resource "openstack_networking_router_v2" "external_router" {
+    name = "External Router"
+    admin_state_up = true
+    external_network_id = var.external_network
+}
+
 /**
 
 Management Network Setup
@@ -21,7 +27,7 @@ resource "openstack_networking_network_v2" "management_network" {
     name = "Management Network"
 }
 
-// the management subnet, and connection to the core router
+// the management subnet, and connection to the external router
 resource "openstack_networking_subnet_v2" "management_subnet" {
     name = "Management Subnet"
     network_id = openstack_networking_network_v2.management_network.id
@@ -48,8 +54,8 @@ resource "openstack_networking_port_v2" "management_subnet_port" {
     port_security_enabled = false
 }
 
-resource "openstack_networking_router_interface_v2" "management_core_interface" {
-    router_id = openstack_networking_router_v2.core_router.id
+resource "openstack_networking_router_interface_v2" "management_external_interface" {
+    router_id = openstack_networking_router_v2.external_router.id
     port_id = openstack_networking_port_v2.management_subnet_port.id
 }
 
