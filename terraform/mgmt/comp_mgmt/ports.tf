@@ -1,5 +1,11 @@
-resource "openstack_networking_port_v2" "deploy_pri_port" {
-    name = "${var.competition_name} Deploy Private Port"
+/**
+
+Management ports
+
+**/
+
+resource "openstack_networking_port_v2" "deploy_port" {
+    name = "Deploy Port"
     network_id = openstack_networking_network_v2.management_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.management_subnet.id
@@ -11,8 +17,8 @@ resource "openstack_networking_port_v2" "deploy_pri_port" {
     ]
 }
 
-resource "openstack_networking_port_v2" "scoring_pri_port" {
-    name = "${var.competition_name} Scoring Private Port"
+resource "openstack_networking_port_v2" "scoring_port" {
+    name = "Scoring Port"
     network_id = openstack_networking_network_v2.management_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.management_subnet.id
@@ -26,7 +32,7 @@ resource "openstack_networking_port_v2" "scoring_pri_port" {
 
 locals {
     ports = {
-        "deploy_pri": openstack_networking_port_v2.deploy_pri_port.id
-        "scoring_pri": openstack_networking_port_v2.scoring_pri_port.id
+        "deploy": openstack_networking_port_v2.deploy_port.id
+        "scoring": openstack_networking_port_v2.scoring_port.id
     }
 }

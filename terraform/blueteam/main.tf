@@ -5,7 +5,12 @@ provider "openstack" {
     tenant_name = var.project_name
 }
 
-// Management Project
+/**
+
+Variables
+
+**/
+
 data "openstack_identity_project_v3" "management_project" {
     name = var.project_name
 }
@@ -47,7 +52,12 @@ data "openstack_compute_flavor_v2" "flavor_windows_small" {
     name = "small"
 }
 
-// lain module
+/**
+
+Homelab module
+
+**/
+
 module "homelab" {
 
     source = "./homelab"
@@ -57,6 +67,7 @@ module "homelab" {
     competition_domain = var.competition_domain
     inherited_tags = var.inherited_tags
 
+    // Defines the jumpbox
     jumpbox = {
         "hostname": "jumpbox"
         "image": data.openstack_images_image_v2.image_linux_ubuntu.id
@@ -67,7 +78,20 @@ module "homelab" {
         "user_data": file("../files/cloud-init-ubuntu.yaml")
     }
 
+    // Defines the hosts on homelab network
     hosts = {
+        "dc": {
+            "image": data.openstack_images_image_v2.image_windows_2019.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
+            "size": 45
+            "port": "dc"
+        }
+        "pc": {
+            "image": data.openstack_images_image_v2.image_windows_10.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
+            "size": 45
+            "port": "pc"
+        }
         "media": {
             "image": data.openstack_images_image_v2.image_linux_ubuntu.id
             "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
@@ -75,15 +99,15 @@ module "homelab" {
             "port": "media"
             "user_data": file("../files/cloud-init-ubuntu.yaml")
         }
-        "dc": {
-            "image": data.openstack_images_image_v2.image_windows_2019.id
-            "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
-            "size": 45
-            "port": "dc"
-        }
     }
 
 }
+
+/**
+
+Kitchen Module
+
+**/
 
 module "kitchen" {
 
@@ -94,12 +118,19 @@ module "kitchen" {
     competition_domain = var.competition_domain
     inherited_tags = var.inherited_tags
     
+    // Defines hosts on kitchen (cloud) network
     hosts = {
-        "lights": {
+        "fridge": {
             "image": data.openstack_images_image_v2.image_linux_openwrt.id
             "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
             "size": 20
-            "port": "lights"
+            "port": "fridge"
+        }
+        "cabinet": {
+            "image": data.openstack_images_image_v2.image_linux_openwrt.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
+            "size": 20
+            "port": "cabinet"
         }
         "oven": {
             "image": data.openstack_images_image_v2.image_linux_openwrt.id
@@ -107,5 +138,17 @@ module "kitchen" {
             "size": 20
             "port": "oven"
         }
+        "lights": {
+            "image": data.openstack_images_image_v2.image_linux_openwrt.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
+            "size": 20
+            "port": "lights"
+        }
+        # "freezer": {
+        #     "image": data.openstack_images_image_v2.image_linux_openwrt.id
+        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
+        #     "size": 20
+        #     "port": "freezer"
+        # }
     }
 }

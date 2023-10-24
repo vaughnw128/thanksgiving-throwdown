@@ -1,19 +1,25 @@
-// the redteam subnet, and connection to the core router
+/**
 
-# data "openstack_networking_network_v2" "competition_network" {
-#     name = "${var.competition_name} Competition Network"
-# }
+Variables
+
+**/
 
 data "openstack_networking_router_v2" "core_router" {
     name = "Core Router"
 }
 
-resource "openstack_networking_network_v2" "redteam_network" {
-    name = "Redteam Network"
-}
-
 data "openstack_networking_network_v2" "management_network" {
     name = "Management Network"
+}
+
+/**
+
+Redteam network
+
+**/
+
+resource "openstack_networking_network_v2" "redteam_network" {
+    name = "Redteam Network"
 }
 
 resource "openstack_networking_subnet_v2" "redteam_subnet" {

@@ -5,7 +5,12 @@ provider "openstack" {
     tenant_name = var.project_name
 }
 
-// Management Project
+/**
+
+Variables
+
+**/
+
 data "openstack_identity_project_v3" "management_project" {
     name = var.project_name
 }
@@ -14,7 +19,6 @@ data "openstack_images_image_v2" "image_ubuntu_22" {
     name = "UbuntuJammy2204"
 }
 
-// Openstack External Network
 data "openstack_networking_network_v2" "external_network" {
     name = "external249"
 }
@@ -23,10 +27,15 @@ data "openstack_images_image_v2" "image_kali" {
     name = "Kali-2023.1"
 }
 
-// Flavor Data
 data "openstack_compute_flavor_v2" "flavor_linux_medium" {
     name = "small"
 }
+
+/**
+
+Redteam module
+
+**/
 
 module "redteam" {
     source ="./redteam"
@@ -37,6 +46,7 @@ module "redteam" {
     external_network = data.openstack_networking_network_v2.external_network.id
     project_id = data.openstack_identity_project_v3.management_project.id
 
+    // Jumpbox host
     jumpbox = {
         "hostname": "jumpbox"
         "image": data.openstack_images_image_v2.image_ubuntu_22.id
@@ -47,6 +57,7 @@ module "redteam" {
         "user_data": file("../files/cloud-init-ubuntu.yaml")
     }
 
+    // All redteam hosts
     redteam_hosts = {
         "one": {
             "image": data.openstack_images_image_v2.image_kali.id

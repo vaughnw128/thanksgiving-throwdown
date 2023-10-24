@@ -1,10 +1,21 @@
+/**
+
+Variables
+
+**/
+
 data "openstack_networking_router_v2" "core_router" {
     name = "Core Router"
 }
 
-// Blueteam kitchen
+/**
+
+Kitchen network and subnet information
+
+**/
+
 resource "openstack_networking_network_v2" "blueteam_kitchen" {
-    name = format("Blueteam Kitchen")
+    name = "Blueteam Kitchen"
 }
 
 resource "openstack_networking_subnet_v2" "blueteam_kitchen_subnet" {

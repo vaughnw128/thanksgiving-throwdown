@@ -1,4 +1,10 @@
-resource "openstack_blockstorage_volume_v3" "team_volumes" { // create volumes for each host
+/**
+
+Volumes
+
+**/
+
+resource "openstack_blockstorage_volume_v3" "team_volumes" {
   for_each = var.hosts
 
   name = format("%s.blueteam.%s-volume", each.key, var.competition_domain)
@@ -9,6 +15,12 @@ resource "openstack_blockstorage_volume_v3" "team_volumes" { // create volumes f
     create = "30m"
   }
 }
+
+/**
+
+Instances
+
+**/
 
 resource "openstack_compute_instance_v2" "team_kitchen_instance" {
     depends_on = [ openstack_networking_subnet_v2.blueteam_kitchen_subnet ]

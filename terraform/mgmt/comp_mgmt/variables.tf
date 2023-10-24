@@ -24,14 +24,12 @@ variable "inherited_tags" {
     type = set(string)
 }
 
-// MGMT VM's that don't have public IP's
-variable "private_hosts" {
+variable "hosts" {
     description = "Map of management VM details hostname:vars"
     type = map
 }
 
-// MGMT VM's that do have public IP's
-variable "public_hosts" {
-    description = "Map of management VM details hostname:vars"
-    type = map
+variable "tenant_name" {
+    description = "project name"
+    type = string
 }

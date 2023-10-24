@@ -1,4 +1,11 @@
-resource "openstack_blockstorage_volume_v3" "team_volumes" { // create volumes for each host
+/**
+
+Volumes
+
+**/
+
+// Normal instances
+resource "openstack_blockstorage_volume_v3" "team_volumes" {
     for_each = var.hosts
 
     name = format("%s.blueteam.%s-volume", each.key, var.competition_domain)
@@ -10,7 +17,8 @@ resource "openstack_blockstorage_volume_v3" "team_volumes" { // create volumes f
     }
 }
 
-resource "openstack_blockstorage_volume_v3" "jumpbox_volume" { // create volume for jumpbox
+// Jumpbox
+resource "openstack_blockstorage_volume_v3" "jumpbox_volume" {
     name = format("%s.blueteam.%s-volume", var.jumpbox.hostname, var.competition_domain)
     size        = var.jumpbox.size
     image_id    = var.jumpbox.image
@@ -20,16 +28,22 @@ resource "openstack_blockstorage_volume_v3" "jumpbox_volume" { // create volume 
     }
 }
 
+/**
 
+Instances
+
+**/
+
+// Normal instances
 resource "openstack_compute_instance_v2" "team_homelab_instance" {
     depends_on = [ openstack_networking_subnet_v2.blueteam_homelab_subnet ]
     for_each = var.hosts
     name = format("%s.blueteam.%s", each.key, var.competition_domain)
     flavor_id = each.value.flavor 
-    tags = setunion(var.inherited_tags,  // comp name
-                    [format("project-${var.competition_name}-blueteam")], // project name
-                    ["homelab"], // Network Location
-                    [format("blueteam-${each.key}")] //hostname
+    tags = setunion(var.inherited_tags,
+                    [format("project-${var.competition_name}-blueteam")], 
+                    ["homelab"],
+                    [format("blueteam-${each.key}")]
                     )
 
     block_device {
@@ -45,18 +59,18 @@ resource "openstack_compute_instance_v2" "team_homelab_instance" {
        port = local.ports[each.value.port]
     }
 
-    user_data = lookup(each.value, "user_data", null) // assign user data, if it exists
+    user_data = lookup(each.value, "user_data", null)
 }
 
 // Jumpbox
 resource "openstack_compute_instance_v2" "team_jumpbox_instance" {
     depends_on = [ openstack_networking_subnet_v2.blueteam_homelab_subnet ]
     name = format("%s.blueteam.%s", var.jumpbox.hostname, var.competition_domain)
-    flavor_id = var.jumpbox.flavor //jumpbox flavor
-    tags = setunion(var.inherited_tags,  // comp name
-                    [format("project-${var.competition_name}-blueteam")], // project name
-                    ["homelab"], // Network Location
-                    ["jumpbox"] //hostname
+    flavor_id = var.jumpbox.flavor 
+    tags = setunion(var.inherited_tags, 
+                    [format("project-${var.competition_name}-blueteam")],
+                    ["homelab"],
+                    ["jumpbox"] 
                     )
 
     block_device {

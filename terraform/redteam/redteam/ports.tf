@@ -1,3 +1,11 @@
+/**
+
+Network ports for jumpbox
+
+Connects from management to redteam
+
+**/
+
 resource "openstack_networking_port_v2" "jumpbox_management_port"{
     name = "Redteam Jumpbox Management"
     network_id = data.openstack_networking_network_v2.management_network.id
@@ -19,6 +27,12 @@ resource "openstack_networking_port_v2" "jumpbox_redteam_port"{
         local.secgroups["jumpbox"]
     ]
 }
+
+/**
+
+Network ports for all redteam boxes
+
+**/
 
 resource "openstack_networking_port_v2" "redteam_one_port" {
     name = "Redteam #1 Port"
