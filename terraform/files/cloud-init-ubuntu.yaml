@@ -1,0 +1,15 @@
+#cloud-config
+users:
+  - name: grayteam
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG70MCVouv8ZbfAAud3bW7gHXfywkeonCp+ixE7SYUN2
+    gecos: grayteam user
+    groups: [adm, sudo]
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /bin/bash
+    passwd: "$6$grayteam$X9cP1VQwS6//9rKTcQm.GTgVhlBKGLcEy.XUdOMHtR6vJRNG0wnj6eS7c499ZhDQ0TsvAKY8E4FcAYG03SzM9." # GrayTeam123!
+    lock_passwd: false
+timezone: US/Eastern
+ssh_pwauth: yes
+package_update: true
+package_upgrade: true
