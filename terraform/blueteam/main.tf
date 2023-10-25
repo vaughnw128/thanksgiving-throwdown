@@ -11,6 +11,10 @@ Variables
 
 **/
 
+data "openstack_networking_network_v2" "external_network" {
+    name = "external249"
+}
+
 data "openstack_identity_project_v3" "management_project" {
     name = var.project_name
 }
@@ -66,17 +70,18 @@ module "homelab" {
     competition_name = var.competition_name
     competition_domain = var.competition_domain
     inherited_tags = var.inherited_tags
+    external_network = data.openstack_networking_network_v2.external_network.id
 
     // Defines the jumpbox
-    jumpbox = {
-        "hostname": "jumpbox"
-        "image": data.openstack_images_image_v2.image_linux_ubuntu.id
-        "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
-        "size": 30
-        "homelab_port": "jumpbox_homelab"
-        "management_port": "jumpbox_management"
-        "user_data": file("../files/cloud-init-ubuntu.yaml")
-    }
+    # jumpbox = {
+    #     "hostname": "jumpbox"
+    #     "image": data.openstack_images_image_v2.image_linux_ubuntu.id
+    #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
+    #     "size": 30
+    #     "homelab_port": "jumpbox_homelab"
+    #     "management_port": "jumpbox_management"
+    #     "user_data": file("../files/cloud-init-ubuntu.yaml")
+    # }
 
     // Defines the hosts on homelab network
     hosts = {

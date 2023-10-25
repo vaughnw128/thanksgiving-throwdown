@@ -13,9 +13,13 @@ variable "competition_domain" {
     type = string
 }
 
-variable "jumpbox" {
-    description = "Jumpbox variables"
-    type = map
+# variable "jumpbox" {
+#     description = "Jumpbox variables"
+#     type = map
+# }
+
+variable "external_network" {
+    description = "External Network UUID"
 }
 
 variable "hosts" {

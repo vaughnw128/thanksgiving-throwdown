@@ -17,17 +17,6 @@ resource "openstack_blockstorage_volume_v3" "redteam_volumes" { // create volume
   }
 }
 
-// Jumpbox
-resource "openstack_blockstorage_volume_v3" "jumpbox_volume" { // create volume for jumpbox
-    name = format("%s.redteam.%s-volume", var.jumpbox.hostname, var.competition_domain)
-    size        = var.jumpbox.size
-    image_id    = var.jumpbox.image
-    
-    timeouts {
-      create = "30m"
-    }
-}
-
 /**
 
 Redteam instances
@@ -58,36 +47,5 @@ resource "openstack_compute_instance_v2" "redteam_instance" {
     user_data = lookup(each.value, "user_data", null)
     config_drive = true
     
-}
-
-// Jumpbox
-resource "openstack_compute_instance_v2" "team_jumpbox_instance" {
-    depends_on = [ openstack_networking_subnet_v2.redteam_subnet ]
-    name = format("%s.redteam.%s", var.jumpbox.hostname, var.competition_domain)
-    flavor_id = var.jumpbox.flavor
-    tags = setunion(var.inherited_tags,
-                    [format("project-${var.competition_name}-redteam")],
-                    ["redteam"],
-                    ["jumpbox"] 
-                    )
-
-    block_device {
-        uuid = openstack_blockstorage_volume_v3.jumpbox_volume.id
-        volume_size = openstack_blockstorage_volume_v3.jumpbox_volume.size
-        boot_index = 0
-        delete_on_termination = true
-        source_type = "volume"
-        destination_type = "volume"
-    }
-
-    network {
-        port = local.ports[var.jumpbox.redteam_port]
-    }
-     network {
-        port = local.ports[var.jumpbox.management_port]
-    }   
-
-    user_data = lookup(var.jumpbox, "user_data", null)
-    config_drive = true
 }
 

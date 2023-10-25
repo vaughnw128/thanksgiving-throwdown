@@ -1,46 +1,12 @@
 /**
 
-Network ports for jumpbox
-
-Connects from management to redteam
-
-**/
-
-resource "openstack_networking_port_v2" "jumpbox_management_port"{
-    name = "Redteam Jumpbox Management"
-    network_id = data.openstack_networking_network_v2.management_network.id
-    fixed_ip {
-        subnet_id = data.openstack_networking_subnet_v2.management_subnet.id
-        ip_address = "10.100.0.150"
-    }
-    security_group_ids = [
-        local.secgroups["default"],
-        local.secgroups["jumpbox"]
-    ]
-}
-
-resource "openstack_networking_port_v2" "jumpbox_redteam_port"{
-    name = "Redteam Jumpbox Rednet"
-    network_id = openstack_networking_network_v2.redteam_network.id
-    fixed_ip {
-        subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
-        ip_address = "10.50.0.100"
-    }
-    security_group_ids = [
-        local.secgroups["default"],
-        local.secgroups["jumpbox"]
-    ]
-}
-
-/**
-
 Network ports for all redteam boxes
 
 **/
 
 resource "openstack_networking_port_v2" "redteam_one_port" {
     name = "Redteam #1 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.1"
@@ -53,7 +19,7 @@ resource "openstack_networking_port_v2" "redteam_one_port" {
 
 resource "openstack_networking_port_v2" "redteam_two_port" {
     name = "Redteam #2 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.2"
@@ -66,7 +32,7 @@ resource "openstack_networking_port_v2" "redteam_two_port" {
 
 resource "openstack_networking_port_v2" "redteam_three_port" {
     name = "Redteam #3 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.3"
@@ -80,7 +46,7 @@ resource "openstack_networking_port_v2" "redteam_three_port" {
 
 resource "openstack_networking_port_v2" "redteam_four_port" {
     name = "Redteam #4 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.4"
@@ -94,7 +60,7 @@ resource "openstack_networking_port_v2" "redteam_four_port" {
 
 resource "openstack_networking_port_v2" "redteam_five_port" {
     name = "Redteam #5 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.5"
@@ -107,7 +73,7 @@ resource "openstack_networking_port_v2" "redteam_five_port" {
 
 resource "openstack_networking_port_v2" "redteam_six_port" {
     name = "Redteam #6 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.6"
@@ -120,7 +86,7 @@ resource "openstack_networking_port_v2" "redteam_six_port" {
 
 resource "openstack_networking_port_v2" "redteam_seven_port" {
     name = "Redteam #7 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.7"
@@ -134,7 +100,7 @@ resource "openstack_networking_port_v2" "redteam_seven_port" {
 
 resource "openstack_networking_port_v2" "redteam_eight_port" {
     name = "Redteam #8 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.8"
@@ -148,7 +114,7 @@ resource "openstack_networking_port_v2" "redteam_eight_port" {
 
 resource "openstack_networking_port_v2" "redteam_nine_port" {
     name = "Redteam #9 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.9"
@@ -161,7 +127,7 @@ resource "openstack_networking_port_v2" "redteam_nine_port" {
 
 resource "openstack_networking_port_v2" "redteam_ten_port" {
     name = "Redteam #10 Port"
-    network_id = openstack_networking_network_v2.redteam_network.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.redteam_subnet.id
         ip_address = "10.50.0.10"
@@ -174,8 +140,6 @@ resource "openstack_networking_port_v2" "redteam_ten_port" {
 
 locals {
     ports = {
-        "jumpbox_management": openstack_networking_port_v2.jumpbox_management_port.id
-        "jumpbox_redteam": openstack_networking_port_v2.jumpbox_redteam_port.id
         "redteam_one": openstack_networking_port_v2.redteam_one_port.id
         "redteam_two": openstack_networking_port_v2.redteam_two_port.id
         "redteam_three": openstack_networking_port_v2.redteam_three_port.id

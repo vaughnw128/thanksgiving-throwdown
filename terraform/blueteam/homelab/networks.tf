@@ -9,8 +9,8 @@ data "openstack_networking_router_v2" "core_router" {
     name = "Core Router"
 }
 
-data "openstack_networking_network_v2" "management_network" {
-    name = "Management Network"
+data "openstack_networking_network_v2" "competition_cloud_network" {
+    name = "Competition Cloud Network"
 }
 
 data "openstack_networking_subnet_v2" "management_subnet" {
@@ -22,6 +22,12 @@ data "openstack_networking_subnet_v2" "management_subnet" {
 Blueteam homelab subnet and network information
 
 **/
+
+# resource "openstack_networking_router_v2" "blueteam_homelab_router" {
+#     name = "Homelab Router"
+#     admin_state_up = true
+#     external_network_id = var.external_network
+# }
 
 resource "openstack_networking_network_v2" "blueteam_homelab" {
     name = "Blueteam Homelab"
@@ -60,3 +66,8 @@ resource "openstack_networking_router_interface_v2" "blueteam_homelab_interface"
     router_id = data.openstack_networking_router_v2.core_router.id
     port_id = openstack_networking_port_v2.blueteam_homelab_subnet_port.id
 }
+
+# resource "openstack_networking_router_interface_v2" "blueteam_homelab_interface" {
+#     router_id = data.openstack_networking_router_v2.core_router.id
+#     port_id = openstack_networking_port_v2.blueteam_homelab_subnet_port.id
+# }

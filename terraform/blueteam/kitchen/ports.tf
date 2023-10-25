@@ -6,7 +6,7 @@ Network ports with static IPs for smart home devices
 
 resource "openstack_networking_port_v2" "fridge_port"{
     name = "Blueteam Kitchen Fridge"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.blueteam_kitchen_subnet.id
         ip_address = "10.2.0.1"
@@ -19,7 +19,7 @@ resource "openstack_networking_port_v2" "fridge_port"{
 
 resource "openstack_networking_port_v2" "cabinet_port"{
     name = "Blueteam Kitchen Cabinet"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.blueteam_kitchen_subnet.id
         ip_address = "10.2.0.2"
@@ -32,7 +32,7 @@ resource "openstack_networking_port_v2" "cabinet_port"{
 
 resource "openstack_networking_port_v2" "oven_port"{
     name = "Blueteam Kitchen Oven"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.blueteam_kitchen_subnet.id
         ip_address = "10.2.0.3"
@@ -45,7 +45,7 @@ resource "openstack_networking_port_v2" "oven_port"{
 
 resource "openstack_networking_port_v2" "lights_port"{
     name = "Blueteam Kitchen Lights"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.blueteam_kitchen_subnet.id
         ip_address = "10.2.0.4"
@@ -58,7 +58,7 @@ resource "openstack_networking_port_v2" "lights_port"{
 
 resource "openstack_networking_port_v2" "freezer_port"{
     name = "Blueteam Kitchen Freezer"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.blueteam_kitchen_subnet.id
         ip_address = "10.2.0.5"

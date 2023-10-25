@@ -6,7 +6,7 @@ Management ports
 
 resource "openstack_networking_port_v2" "deploy_port" {
     name = "Deploy Port"
-    network_id = openstack_networking_network_v2.management_network.id
+    network_id = openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.management_subnet.id
         ip_address = "10.100.0.1"
@@ -19,7 +19,7 @@ resource "openstack_networking_port_v2" "deploy_port" {
 
 resource "openstack_networking_port_v2" "scoring_port" {
     name = "Scoring Port"
-    network_id = openstack_networking_network_v2.management_network.id
+    network_id = openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.management_subnet.id
         ip_address = "10.100.0.2"

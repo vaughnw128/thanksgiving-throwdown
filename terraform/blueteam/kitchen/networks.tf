@@ -8,22 +8,19 @@ data "openstack_networking_router_v2" "core_router" {
     name = "Core Router"
 }
 
+data "openstack_networking_network_v2" "competition_cloud_network" {
+    name = "Competition Cloud Network"
+}
+
 /**
 
-Kitchen network and subnet information
+Kitchen subnet information
 
 **/
 
-resource "openstack_networking_network_v2" "blueteam_kitchen" {
-    name = "Blueteam Kitchen"
-}
-
 resource "openstack_networking_subnet_v2" "blueteam_kitchen_subnet" {
-    depends_on = [
-        openstack_networking_network_v2.blueteam_kitchen
-    ]
     name = "Blueteam Kitchen Subnet"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     cidr = "10.2.0.0/24"
     gateway_ip = "10.2.0.254"
     ip_version = 4
@@ -39,7 +36,7 @@ resource "openstack_networking_subnet_v2" "blueteam_kitchen_subnet" {
 
 resource "openstack_networking_port_v2" "blueteam_kitchen_subnet_port" {
     name = "Blueteam Kitchen Port"
-    network_id = openstack_networking_network_v2.blueteam_kitchen.id
+    network_id = data.openstack_networking_network_v2.competition_cloud_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.blueteam_kitchen_subnet.id
         ip_address = "10.2.0.254"
