@@ -22,12 +22,10 @@ Management Network Setup
 
 **/
 
-// Management Network
 resource "openstack_networking_network_v2" "management_network" {
     name = "Management Network"
 }
 
-// the management subnet, and connection to the external router
 resource "openstack_networking_subnet_v2" "management_subnet" {
     name = "Management Subnet"
     network_id = openstack_networking_network_v2.management_network.id
@@ -45,7 +43,7 @@ resource "openstack_networking_subnet_v2" "management_subnet" {
 }
 
 resource "openstack_networking_port_v2" "management_subnet_port" {
-    name = "Management Subnet Port"
+    name = "Management Port"
     network_id = openstack_networking_network_v2.management_network.id
     fixed_ip {
         subnet_id = openstack_networking_subnet_v2.management_subnet.id

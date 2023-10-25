@@ -80,18 +80,20 @@ module "homelab" {
 
     // Defines the hosts on homelab network
     hosts = {
-        # "dc": {
-        #     "image": data.openstack_images_image_v2.image_windows_2019.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
-        #     "size": 80
-        #     "port": "dc"
-        # }
-        # "pc": {
-        #     "image": data.openstack_images_image_v2.image_windows_10.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
-        #     "size": 45
-        #     "port": "pc"
-        # }
+        "dc": {
+            "image": data.openstack_images_image_v2.image_windows_2019.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
+            "size": 80
+            "port": "dc"
+            "user_data": file("../files/cloudbase-config.ps1")
+        }
+        "pc": {
+            "image": data.openstack_images_image_v2.image_windows_10.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
+            "size": 45
+            "port": "pc"
+            "user_data": file("../files/cloudbase-config.ps1")
+        }
         "media": {
             "image": data.openstack_images_image_v2.image_linux_ubuntu.id
             "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
