@@ -24,11 +24,19 @@ data "openstack_images_image_v2" "image_linux_ubuntu" {
 }
 
 data "openstack_images_image_v2" "image_linux_openwrt" {
-    name = "OpenWRT"
+    name = "OpenWRTCloud"
 }
 
 data "openstack_images_image_v2" "image_windows_2019" {
     name = "WinSrv2019-17763-2022"
+}
+
+data "openstack_images_image_v2" "image_linux_raspbian" {
+    name = "Raspbian"
+}
+
+data "openstack_images_image_v2" "image_linux_raspios" {
+    name = "RaspiOSConfigured"
 }
 
 data "openstack_images_image_v2" "image_windows_10" {
@@ -106,6 +114,13 @@ module "homelab" {
             "port": "media"
             "user_data": file("../files/cloud-init-ubuntu.yaml")
         }
+        "pihole": {
+            "image": data.openstack_images_image_v2.image_linux_raspios.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
+            "size": 30
+            "port": "pihole"
+            # "user_data": file("../files/pi_img/user-data.yaml")
+        }
     }
 
 }
@@ -132,30 +147,35 @@ module "kitchen" {
             "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
             "size": 20
             "port": "fridge"
+            "user_data": file("../files/user-data.sh")
         }
         "cabinet": {
             "image": data.openstack_images_image_v2.image_linux_openwrt.id
             "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
             "size": 20
             "port": "cabinet"
+            "user_data": file("../files/user-data.sh")
         }
-        # "oven": {
-        #     "image": data.openstack_images_image_v2.image_linux_openwrt.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
-        #     "size": 20
-        #     "port": "oven"
-        # }
-        # "lights": {
-        #     "image": data.openstack_images_image_v2.image_linux_openwrt.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
-        #     "size": 20
-        #     "port": "lights"
-        # }
-        # "freezer": {
-        #     "image": data.openstack_images_image_v2.image_linux_openwrt.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
-        #     "size": 20
-        #     "port": "freezer"
-        # }
+        "oven": {
+            "image": data.openstack_images_image_v2.image_linux_openwrt.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
+            "size": 20
+            "port": "oven"
+            "user_data": file("../files/user-data.sh")
+        }
+        "lights": {
+            "image": data.openstack_images_image_v2.image_linux_openwrt.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
+            "size": 20
+            "port": "lights"
+            "user_data": file("../files/user-data.sh")
+        }
+        "freezer": {
+            "image": data.openstack_images_image_v2.image_linux_openwrt.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_tiny.id
+            "size": 20
+            "port": "freezer"
+            "user_data": file("../files/user-data.sh")
+        }
     }
 }

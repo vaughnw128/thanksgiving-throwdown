@@ -67,77 +67,77 @@ module "redteam" {
             "secgroup": "redteam"
             "user_data": file("../files/cloud-init-redteam.yaml")
         }
-        # "two": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 81
-        #     "redteam_port": "redteam_two"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")   
-        # }
-        # "three": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_three"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")   
-        # }
-        # "four": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_four"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml") 
-        # }
-        # "five": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_five"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")
-        # }
-        # "six": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_six"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")
-        # }
-        # "seven": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_seven"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")
-        # }
-        # "eight": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_eight"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")
-        # }
-        # "nine": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_nine"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")
-        # }
-        # "ten": {
-        #     "image": data.openstack_images_image_v2.image_kali.id
-        #     "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
-        #     "size": 20
-        #     "redteam_port": "redteam_ten"
-        #     "secgroup": "redteam"
-        #     "user_data": file("../files/cloud-init-redteam.yaml")
-        # }
+        "two": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_two"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")   
+        }
+        "three": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_three"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")   
+        }
+        "four": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_four"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml") 
+        }
+        "five": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_five"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")
+        }
+        "six": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_six"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")
+        }
+        "seven": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_seven"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")
+        }
+        "eight": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_eight"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")
+        }
+        "nine": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_nine"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")
+        }
+        "ten": {
+            "image": data.openstack_images_image_v2.image_kali.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 81
+            "redteam_port": "redteam_ten"
+            "secgroup": "redteam"
+            "user_data": file("../files/cloud-init-redteam.yaml")
+        }
     }
 }

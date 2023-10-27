@@ -17,7 +17,7 @@ resource "openstack_blockstorage_volume_v3" "team_volumes" {
     }
 }
 
-# // Jumpbox
+// Jumpbox
 # resource "openstack_blockstorage_volume_v3" "jumpbox_volume" {
 #     name = format("%s.blueteam.%s-volume", var.jumpbox.hostname, var.competition_domain)
 #     size        = var.jumpbox.size

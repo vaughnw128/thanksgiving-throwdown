@@ -9,7 +9,7 @@ data "openstack_identity_project_v3" "management_project" {
 }
 
 data "openstack_networking_secgroup_v2" "default_secgroup" {
-    secgroup_id = "23f0b9f4-84b0-4ba2-9f8c-a68a86fd011f"
+    secgroup_id = "df7d77a2-adf9-433c-9e4f-240ebebb8ed5"
 }
 
 /**
