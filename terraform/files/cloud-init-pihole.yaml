@@ -9,7 +9,7 @@ users:
     shell: /bin/bash
     passwd: "$6$grayteam$2WTxla.qGvLScUl/NeXf3CfPyziUn/iXW07PwvwB/CWqYbnogXhtdZgJNvaRw2Ot2mGeLPK5WlTDlX3xTyl0M1" # Gr@vyB0at&
     lock_passwd: false
-  - name: blueteam
+  - name: pi
     ssh-authorized-keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwlPB+u7pYs/WhVtvFtX5UeenwBP28Mrxp8MJZ1MgZO
     gecos: blueteam user
@@ -22,6 +22,7 @@ timezone: US/Eastern
 ssh_pwauth: yes
 package_update: true
 package_upgrade: true
+fqdn: raspberry
 
 # Allow ssh into the openwrt boxes
 runcmd:

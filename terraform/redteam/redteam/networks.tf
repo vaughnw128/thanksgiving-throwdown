@@ -29,6 +29,7 @@ resource "openstack_networking_subnet_v2" "redteam_subnet" {
         end = "10.50.0.250"
     }
     dns_nameservers = [
+        "10.100.0.3",
         "1.1.1.1",
         "1.0.0.1"
     ]

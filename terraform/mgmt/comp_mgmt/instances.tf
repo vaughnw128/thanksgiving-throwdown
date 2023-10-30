@@ -4,6 +4,24 @@ Management instances
 
 **/
 
+resource "openstack_blockstorage_volume_v3" "management_volumes" {
+  for_each = var.hosts
+
+  name = format("%s.management.%s-volume", each.key, var.competition_domain)
+  size        = each.value.size
+  image_id    = each.value.image
+
+  timeouts {
+    create = "30m"
+  }
+}
+
+/**
+
+Management instances
+
+**/
+
 resource "openstack_compute_instance_v2" "management_instance" {
     for_each = var.hosts
     name = "${each.key}.management.${var.competition_domain}"
@@ -18,11 +36,11 @@ resource "openstack_compute_instance_v2" "management_instance" {
         local.secgroups[each.value.secgroup],
     ]
     block_device {
-        uuid = each.value.image
+        uuid = openstack_blockstorage_volume_v3.management_volumes[each.key].id
+        volume_size = openstack_blockstorage_volume_v3.management_volumes[each.key].size
         boot_index = 0
-        volume_size = each.value.size
         delete_on_termination = true
-        source_type = "image"
+        source_type = "volume"
         destination_type = "volume"
     }
     network {

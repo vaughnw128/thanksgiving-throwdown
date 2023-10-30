@@ -9,15 +9,6 @@ users:
     shell: /bin/bash
     passwd: "$6$grayteam$2WTxla.qGvLScUl/NeXf3CfPyziUn/iXW07PwvwB/CWqYbnogXhtdZgJNvaRw2Ot2mGeLPK5WlTDlX3xTyl0M1" # Gr@vyB0at&
     lock_passwd: false
-  - name: redteam
-    ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIuk0vHb7os5HavaPr3Yt3IdKkT1r1U2eIx8V0K1Wwi1
-    gecos: redteam user
-    groups: [adm, sudo]
-    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-    shell: /bin/bash
-    passwd: "$6$redteam$xM.anFSiH/Ga30g7cK.HuO0EQhcnQj0U4vry9cvA61oI4.aTvacRKLa3mdb3hE0g8LkAF3rYWEEYC3nkdVfM0/" # M4shedP0tat0%
-    lock_passwd: false
 timezone: US/Eastern
 ssh_pwauth: yes
 package_update: true

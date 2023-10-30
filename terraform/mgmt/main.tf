@@ -23,10 +23,19 @@ data "openstack_images_image_v2" "image_ubuntu_22" {
     name = "UbuntuJammy2204"
 }
 
+data "openstack_images_image_v2" "image_windows_2019" {
+    name = "WinSrv2019-17763-2022"
+}
+
 // Flavor Data
 data "openstack_compute_flavor_v2" "flavor_linux_medium" {
     name = "small"
 }
+
+data "openstack_compute_flavor_v2" "flavor_windows_medium" {
+    name = "medium"
+}
+
 
 /**
 
@@ -50,7 +59,7 @@ module "comp_mgmt" {
             "size": 50
             "mgmt_port": "scoring"
             "secgroup": "scorestack"
-            "user_data": file("../files/cloud-init-ubuntu.yaml")
+            "user_data": file("../files/cloud-init-mgmt.yaml")
         }
         "deploy": {
             "image": data.openstack_images_image_v2.image_ubuntu_22.id
@@ -58,7 +67,23 @@ module "comp_mgmt" {
             "size": 20
             "mgmt_port": "deploy"
             "secgroup": "deploy"
-            "user_data": file("../files/cloud-init-ubuntu.yaml")
+            "user_data": file("../files/cloud-init-mgmt.yaml")
+        }
+        "dns": {
+            "image": data.openstack_images_image_v2.image_windows_2019.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_windows_medium.id
+            "size": 40
+            "mgmt_port": "dns"
+            "secgroup": "dns"
+            "user_data": file("../files/cloudbase-config.ps1")
+        }
+        "comp": {
+            "image": data.openstack_images_image_v2.image_ubuntu_22.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_medium.id
+            "size": 40
+            "mgmt_port": "comp"
+            "secgroup": "comp"
+            "user_data": file("../files/cloud-init-mgmt.yaml")
         }
     }
 }

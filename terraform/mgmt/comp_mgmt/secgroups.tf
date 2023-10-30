@@ -50,6 +50,38 @@ resource "openstack_networking_secgroup_rule_v2" "scorestack_secgroup_rule" {
     security_group_id = openstack_networking_secgroup_v2.scorestack_secgroup.id
 }
 
+resource "openstack_networking_secgroup_v2" "dns_secgroup" {
+    tenant_id = data.openstack_identity_project_v3.management_project.id
+    name = "Scorestack Secgroup"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "dns_secgroup_rule" {
+    for_each = {"http": 80, "https": 443, "ssh": 22, "dns": 53}
+    description = each.key
+    direction = "ingress"
+    ethertype = "IPv4"
+    protocol = "tcp"
+    port_range_min = each.value
+    port_range_max = each.value
+    security_group_id = openstack_networking_secgroup_v2.dns_secgroup.id
+}
+
+resource "openstack_networking_secgroup_v2" "comp_secgroup" {
+    tenant_id = data.openstack_identity_project_v3.management_project.id
+    name = "Compsole Secgroup"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "comp_secgroup_rule" {
+    for_each = {"http": 80, "https": 443, "ssh": 22}
+    description = each.key
+    direction = "ingress"
+    ethertype = "IPv4"
+    protocol = "tcp"
+    port_range_min = each.value
+    port_range_max = each.value
+    security_group_id = openstack_networking_secgroup_v2.comp_secgroup.id
+}
+
 resource "openstack_networking_secgroup_v2" "null_secgroup" {
     tenant_id = data.openstack_identity_project_v3.management_project.id
     name = "Null Secgroup"
@@ -59,6 +91,8 @@ locals {
     secgroups = {
         "deploy": openstack_networking_secgroup_v2.deploy_secgroup.id
         "scorestack": openstack_networking_secgroup_v2.scorestack_secgroup.id
+        "dns": openstack_networking_secgroup_v2.dns_secgroup.id
+        "comp": openstack_networking_secgroup_v2.comp_secgroup.id
         "default": data.openstack_networking_secgroup_v2.default_secgroup.id
         "null": openstack_networking_secgroup_v2.null_secgroup.id
     }

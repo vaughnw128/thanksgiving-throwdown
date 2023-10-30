@@ -37,6 +37,7 @@ resource "openstack_networking_subnet_v2" "management_subnet" {
         end = "10.100.0.250"
     }
     dns_nameservers = [
+        "10.100.0.3",
         "1.1.1.1",
         "1.0.0.1",
     ]
