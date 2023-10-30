@@ -1,30 +1,5 @@
-#cloud-config
-users:
-  - name: grayteam
-    ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG1NXv3y0utRmetTsGDP3cgadeNdlmzUSH3h6LzIj2yV
-    gecos: grayteam user
-    groups: [adm, sudo]
-    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-    shell: /bin/bash
-    passwd: "$6$grayteam$2WTxla.qGvLScUl/NeXf3CfPyziUn/iXW07PwvwB/CWqYbnogXhtdZgJNvaRw2Ot2mGeLPK5WlTDlX3xTyl0M1" # Gr@vyB0at&
-    lock_passwd: false
-  - name: pi
-    ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwlPB+u7pYs/WhVtvFtX5UeenwBP28Mrxp8MJZ1MgZO
-    gecos: blueteam user
-    groups: [adm, sudo]
-    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-    shell: /bin/bash
-    passwd: "$6$blueteam$xf1r8Ph4TZZT5dkiSaSwKE.K9nxiDqVyszuPIoxkMwEzIK0UQvGZYgLBa0peTxR/NyUGYviRx8g8J2OrMQ6vv0" # Turk3yT1me$
-    lock_passwd: false
-timezone: US/Eastern
-ssh_pwauth: yes
-package_update: true
-package_upgrade: true
-fqdn: raspberry
+#!/bin/bash
 
-# Allow ssh into the openwrt boxes
-runcmd:
-  - echo "HostKeyAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config
-  - echo "PubkeyAcceptedAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config
+# Adding ssh rsa for the host key algos to ssh into openwrt
+echo "HostKeyAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config
+echo "PubkeyAcceptedAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config

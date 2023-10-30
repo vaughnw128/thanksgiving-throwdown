@@ -20,7 +20,7 @@ data "openstack_identity_project_v3" "management_project" {
 }
 
 data "openstack_images_image_v2" "image_linux_ubuntu" {
-    name = "UbuntuJammy2204"
+    name = "UbuntuJammy2204-Desktop"
 }
 
 data "openstack_images_image_v2" "image_linux_openwrt" {
@@ -36,7 +36,7 @@ data "openstack_images_image_v2" "image_linux_debian" {
 }
 
 data "openstack_images_image_v2" "image_linux_raspios" {
-    name = "RaspiOSConfigured"
+    name = "RaspberryPiCloud"
 }
 
 data "openstack_images_image_v2" "image_windows_10" {
@@ -114,12 +114,19 @@ module "homelab" {
             "port": "media"
             "user_data": file("../files/cloud-init-blueteam.yaml")
         }
+        "web": {
+            "image": data.openstack_images_image_v2.image_linux_ubuntu.id
+            "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
+            "size": 30
+            "port": "web"
+            "user_data": file("../files/cloud-init-blueteam.yaml")
+        }
         "pihole": {
             "image": data.openstack_images_image_v2.image_linux_raspios.id
             "flavor": data.openstack_compute_flavor_v2.flavor_linux_small.id
             "size": 30
             "port": "pihole"
-            #"user_data": file("../files/cloud-init-pihole.yaml")
+            "user_data": file("../files/cloud-init-pihole.yaml")
         }
     }
 

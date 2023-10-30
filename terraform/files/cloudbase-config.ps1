@@ -371,5 +371,5 @@ secedit /configure /db c:\windows\security\local.sdb /cfg c:\secpol.cfg /areas S
 rm -force c:\secpol.cfg -confirm:$false
 net user grayteam GrayTeam123! /logonpasswordchg:no /active:yes /add /y
 net localgroup administrators grayteam /add
-net user Administrator GrayTeam123! /logonpasswordchg:no /y
+net user Administrator Gr@vyB0at% /logonpasswordchg:no /y
 # Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
