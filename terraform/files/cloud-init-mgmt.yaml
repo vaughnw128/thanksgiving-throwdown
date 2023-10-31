@@ -7,7 +7,7 @@ users:
     groups: [adm, sudo]
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     shell: /bin/bash
-    passwd: "$6$grayteam$2WTxla.qGvLScUl/NeXf3CfPyziUn/iXW07PwvwB/CWqYbnogXhtdZgJNvaRw2Ot2mGeLPK5WlTDlX3xTyl0M1" # Gr@vyB0at&
+    passwd: "$6$grayteam$NteE0QvLjvFN3IALTQhxS9cX5j5W9.WYW9hVlaGVcdareWLmXP07foGWV.zNwGAo/heiWeoSVQlqHC79Qx8Bv1" # Gr@vyB0at%
     lock_passwd: false
 timezone: US/Eastern
 ssh_pwauth: yes
