@@ -1,0 +1,56 @@
+---
+# Seth Teller
+# srt9640@rit.edu
+# 11/13/2023
+#
+# OpenChef Ansible script for CDT
+
+- name: Configure OpenChef OS
+  hosts: root@10.2.0.5
+  become: yes
+  tasks:
+    - name: Update package lists
+      opkg_update:
+
+    - name: Install python3-pip
+      opkg:
+        name: python3-pip
+        state: present
+
+    - name: Install scapy
+      opkg:
+        name: scapy
+        state: present
+
+    - name: Install watchdog using pip
+      pip:
+        name: watchdog
+        state: present
+
+    - name: Make directory
+      file:
+        path: /opt/
+        state: directory
+        mode: '0777'
+
+    - name: Create /opt/freezer folder
+      file:
+        path: /opt/freezer
+        state: directory
+        mode: '0777'
+
+    - name: Create DAT file with integer "0"
+      lineinfile:
+        path: /opt/freezer/file.dat
+        line: '0'
+        create: yes
+
+    - name: Copy file to system
+      copy:
+        src: "../iot/freezer/app.py"
+        dst: "/etc/init.d/app.py"
+
+    - name: Copy file to system
+      copy:
+        src: "../iot/freezer/service.py"
+        dst: "/etc/init.d/service.py"

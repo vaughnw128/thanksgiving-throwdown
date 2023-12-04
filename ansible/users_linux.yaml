@@ -1,0 +1,25 @@
+---
+
+- name: Script - Creating Competition Users
+  hosts: homelab_linux
+  become: yes
+  become_user: root
+  tasks:
+  - name: Add users
+    ansible.builtin.user:
+      name: "{{ item }}"
+      state: present
+      password: $6$blueteam$xf1r8Ph4TZZT5dkiSaSwKE.K9nxiDqVyszuPIoxkMwEzIK0UQvGZYgLBa0peTxR/NyUGYviRx8g8J2OrMQ6vv0
+      groups: sudo
+    loop:
+       - cousin_jimmy
+       - cousin_larry
+       - cousin_agetha
+       - cousin_sarah
+       - cousin_austin
+       - uncle_john
+       - uncle_barry
+       - aunt_maria
+       - aunt_kate
+       - jeff
+       - lily

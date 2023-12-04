@@ -1,0 +1,1 @@
+put competition planning docs here

@@ -1,0 +1,58 @@
+---
+#Nate M for cabinet running openwrt
+#fact check - it dont work 100% BUT it has the necessary info for you to get it started and working manually lol, so ill just do this manually if/when we need to rebuild it takes like 5 mins
+#create user 'grayteam'@'%' identified by 'Gr@vyB0at%';
+#grant all privileges on * to 'grayteam'@'%';
+- name: install mysql, edit required files, start it, create database
+  hosts: cabinet
+  tasks:
+
+    - name: install mysql
+      community.general.opkg:
+        name:
+          - mariadb-server
+          - mariadb-client
+        state: present
+
+    - name: edit mysqld config
+      ansible.builtin.lineinfile:
+        path: /etc/config/mysqld
+        regexp: option enabled
+        line: "    option enabled '1'"
+
+    - name: make directory for mysql
+      ansible.builtin.file:
+        path: /etc/mysql_data
+        state: directory
+        mode: '0755'
+
+    - name: edit mysql server config datadir
+      ansible.builtin.lineinfile:
+        path: /etc/mysql/conf.d/50-server.cnf
+        regexp: datadir
+        line: datadir = /etc/mysql_data
+
+    - name: edit mysql server config tmpdir
+      ansible.builtin.lineinfile:
+        path: /etc/mysql/conf.d/50-server.cnf
+        regexp: tmpdir                =
+        line: tmpdir = /tmp
+
+    - name: edit mysql server config bind address ()
+      ansible.builtin.lineinfile:
+        path: /etc/mysql/conf.d/50-server.cnf
+        regexp: 127\.0\.0\.1
+        line: bind-address 10.2.0.2
+
+    - name: install mysql
+      ansible.builtin.command: mysql_install_db
+
+    - name: install mysql
+      ansible.builtin.command: ulimit -n 32185
+#changed error_log dir to /tmp
+#chown/grp mariadb /etc/mysql_data
+
+    - name: start mysql
+      ansible.builtin.command: service mysqld start
+#if it dont work then cd /etc/mysql_data and chown/grp -R mariadb *
+#source /tmp/dump.sql;

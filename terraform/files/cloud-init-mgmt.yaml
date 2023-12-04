@@ -1,0 +1,20 @@
+#cloud-config
+users:
+  - name: grayteam
+    ssh-authorized-keys:
+      - ssh-ed25519 #pubkey
+    gecos: grayteam user
+    groups: [adm, sudo]
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /bin/bash
+    passwd: #password
+    lock_passwd: false
+timezone: US/Eastern
+ssh_pwauth: yes
+package_update: true
+package_upgrade: true
+
+# Allow ssh into the openwrt boxes
+runcmd:
+  - echo "HostKeyAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config
+  - echo "PubkeyAcceptedAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config

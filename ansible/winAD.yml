@@ -1,0 +1,50 @@
+---
+# Joseph Serafin
+# jps7483@rit.edu
+# 9/19/2023
+# Works with Windows Server 2022, see README for setup instructions
+
+- name: Install and configure AD server on windows server host and add group and users
+  hosts: ansiblectl@100.64.5.34 # Target host
+  tasks:
+    - name: Install AD
+      ansible.windows.win_feature:
+        name: AD-Domain-Services
+        include_management_tools: yes
+        include_sub_features: yes
+        state: present # Makes sure it is insatlled
+
+    - name: Install AD-LDS
+      ansible.windows.win_feature:
+        name: ADLDS
+        include_management_tools: yes
+        include_sub_features: yes
+        state: present # Makes sure it is insatlled
+    
+    - name: Create new forest
+      ansible.windows.win_domain:
+        dns_domain_name: blueTeam.local
+        safe_mode_password: b@ckUpp@ss
+
+    - name: Reboot after done
+      ansible.windows.win_reboot:
+        msg: "Server configuration in progress, rebooting"
+          
+    - name: Adds users for competition
+      ansible.windows.win_user:
+        name: "{{ item }}"
+        password: blueTe@md3F
+        state: present
+
+      loop:
+        - grayteam
+        - raissa
+        - audun
+        - hubert
+        - cousin_suzana
+        - cousin_edwald
+        - cousin_abraham
+        - uncle_amunet
+        - uncle_sabri
+        - aunt_desta
+        - aunt_eleonore

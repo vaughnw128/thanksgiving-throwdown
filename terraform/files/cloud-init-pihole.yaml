@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Adding ssh rsa for the host key algos to ssh into openwrt
+echo "HostKeyAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config
+echo "PubkeyAcceptedAlgorithms = +ssh-rsa" >> /etc/ssh/ssh_config
